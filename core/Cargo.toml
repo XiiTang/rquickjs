@@ -41,6 +41,8 @@ approx = "0.5"
 trybuild = "1"
 
 [features]
+boundless-terminal-allocation = ["rquickjs-sys/boundless-terminal-allocation"]
+
 default = ["std"]
 
 std = ["relative-path?/std"]

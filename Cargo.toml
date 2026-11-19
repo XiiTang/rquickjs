@@ -42,6 +42,9 @@ rquickjs-macro = { workspace = true, optional = true }
 [features]
 default = ["std"]
 
+# Enable the private allocation-denial report in the Boundless WASI guest.
+boundless-terminal-allocation = ["rquickjs-core/boundless-terminal-allocation"]
+
 # Almost all features excluding "parallel" and support for async runtimes
 full = [
   "std",

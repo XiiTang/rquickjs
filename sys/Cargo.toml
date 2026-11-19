@@ -24,6 +24,7 @@ optional = true
 
 [features]
 bindgen = ["bindgen-rs"]
+boundless-terminal-allocation = []
 
 # Debug logging
 logging = ["pretty_env_logger"]

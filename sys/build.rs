@@ -111,6 +111,7 @@ fn main() {
         "dump-promise",
         "dump-read-object",
         "disable-assertions",
+        "boundless-terminal-allocation",
     ];
 
     for feature in &features {
@@ -149,6 +150,9 @@ fn main() {
 
     let target_os = env::var("CARGO_CFG_TARGET_OS").unwrap();
     let target_env = env::var("CARGO_CFG_TARGET_ENV").unwrap();
+    if cfg!(feature = "boundless-terminal-allocation") && target_os == "wasi" {
+        defines.push(("CONFIG_BOUNDLESS_TERMINAL_ALLOCATION".into(), None));
+    }
 
     let mut builder = cc::Build::new();
     builder
