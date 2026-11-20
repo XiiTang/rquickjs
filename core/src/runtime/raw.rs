@@ -297,6 +297,11 @@ impl RawRuntime {
     /// The default value is 256x1024 bytes. A `limit` of `0` disables the
     /// check. Values larger than 16 MiB are treated as `0` so QuickJS's
     /// `stack_top - stack_size` subtraction cannot underflow.
+    #[cfg(target_os = "wasi")]
+    pub unsafe fn set_memory_limit_hook(&mut self, hook: Option<unsafe extern "C" fn()>) {
+        unsafe { qjs::JS_SetMemoryLimitHook(self.rt.as_ptr(), hook) }
+    }
+
     pub unsafe fn set_max_stack_size(&mut self, limit: usize) {
         const MAX_SANE: usize = 1 << 24;
         let limit: size_t = if limit > MAX_SANE {

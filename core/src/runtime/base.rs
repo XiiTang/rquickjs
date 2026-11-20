@@ -161,6 +161,17 @@ impl Runtime {
         }
     }
 
+    /// Installs the hook for a denied configured heap allocation on WASI.
+    ///
+    /// # Safety
+    /// The hook must not unwind into QuickJS or reenter the runtime.
+    #[cfg(target_os = "wasi")]
+    pub unsafe fn set_memory_limit_hook(&self, hook: Option<unsafe extern "C" fn()>) {
+        unsafe {
+            self.inner.lock().set_memory_limit_hook(hook);
+        }
+    }
+
     /// Set a limit on the max size of stack the runtime will use.
     ///
     /// The default values is 256x1024 bytes.

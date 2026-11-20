@@ -18,6 +18,11 @@ include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
 #[cfg(not(feature = "bindgen"))]
 include!(concat!("bindings/", bindings_env!("TARGET"), ".rs"));
 
+#[cfg(all(target_os = "wasi", not(feature = "bindgen")))]
+unsafe extern "C" {
+    pub fn JS_SetMemoryLimitHook(rt: *mut JSRuntime, hook: Option<unsafe extern "C" fn()>);
+}
+
 #[cfg(target_pointer_width = "64")]
 include!("inlines/ptr_64.rs");
 
